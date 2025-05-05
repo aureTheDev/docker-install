@@ -62,7 +62,7 @@ install_docker_debian() {
     else
         printf "${COLOR_GREEN}[+] Docker GPG key already exists. Skipping.${COLOR_RESET}\n"
     fi
-
+    
     echo \
     "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/$(. /etc/os-release && echo "$ID") \
     $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
