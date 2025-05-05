@@ -56,7 +56,7 @@ install_docker_debian() {
     handle_result $? "Installing prerequisites"
 
     sudo mkdir -p /etc/apt/keyrings
-    curl -fsSL https://download.docker.com/linux/$ID/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    curl -fsSL https://download.docker.com/linux/$ID/gpg | sudo gpg --dearmor --yes -o /etc/apt/keyrings/docker.gpg
     handle_result $? "Adding Docker GPG key"
 
     echo \
