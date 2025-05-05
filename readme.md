@@ -22,5 +22,5 @@ This Bash script installs Docker and Docker Compose on **Debian**, **Ubuntu**, o
 You can download and run the script using the following command:
 
 ```sh
-bash -c "$(wget -qLO - )"
+bash -c "$(wget -qLO - https://github.com/aureTheDev/docker-install/raw/main/docker-install.sh)"
 ```
