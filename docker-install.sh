@@ -56,11 +56,15 @@ install_docker_debian() {
     handle_result $? "Installing prerequisites"
 
     sudo mkdir -p /etc/apt/keyrings
-    curl -fsSL https://download.docker.com/linux/$ID/gpg | sudo gpg --dearmor --yes -o /etc/apt/keyrings/docker.gpg
-    handle_result $? "Adding Docker GPG key"
+    if [ ! -f /etc/apt/keyrings/docker.gpg ]; then
+        curl -fsSL https://download.docker.com/linux/$(. /etc/os-release && echo "$ID")/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+        handle_result $? "Adding Docker GPG key"
+    else
+        printf "${COLOR_GREEN}[+] Docker GPG key already exists. Skipping.${COLOR_RESET}\n"
+    fi
 
     echo \
-    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/$ID \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/$(. /etc/os-release && echo "$ID") \
     $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     handle_result $? "Adding Docker repository"
 
